@@ -1,0 +1,25 @@
+# Veridion — Local Infrastructure
+# Provides Postgres and Redis for development.
+# Usage: docker compose -f infra/docker/docker-compose.yml up
+
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: veridion
+      POSTGRES_PASSWORD: veridion
+      POSTGRES_DB: veridion
+    ports:
+      - "5432:5432"
+    volumes:
+      - veridion-pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+volumes:
+  veridion-pgdata:
